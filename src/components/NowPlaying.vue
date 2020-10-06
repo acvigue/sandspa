@@ -1,13 +1,13 @@
 <template>
   <div class="bg-black text-white row justify-center items-center nowplaying__container">
-      <div class="col">
+      <div class="col" @click="$router.push('/')">
         <div v-if="$root.status.playlist=='true'" class="nowplaying__container-topline">Playing from {{$root.status.playlistName.split("-")[1].replace('sd/', '').replace(".seq", "")}}</div>
         <div v-if="$root.status.playlist=='false'" class="nowplaying__container-topline">Now Playing</div>
         <div class="nowplaying__container-trackname">{{$root.status.file.split("-")[1].replace(".THR", "").replace(".thr", "")}}</div>
       </div>
     <div>
-      <q-btn @click="$root.pause()" v-if="$root.state=='playing'" round color="black" size="lg" icon="pause" />
-      <q-btn @click="$root.play()" v-if="$root.state=='paused'" round color="black" size="lg" icon="play_arrow" />
+      <q-btn @click.stop="$root.pause()" v-if="$root.state=='playing'" round color="black" size="lg" icon="pause" />
+      <q-btn @click.stop="$root.play()" v-if="$root.state=='paused'" round color="black" size="lg" icon="play_arrow" />
     </div>
   </div>
 </template>

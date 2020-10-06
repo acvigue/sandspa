@@ -11,6 +11,7 @@ Vue.use(VueSSE);
 
 Vue.config.productionTip = false
 const ipaddr = "http://sandy.int.vigue.me";
+const wledhost = "http://wled-wled.int.vigue.me";
 const username = "acvigue@me.com";
 const password = "Goober312$";
 
@@ -21,6 +22,7 @@ new Vue({
     return {
       state: "playing",
       baseURL: ipaddr,
+      wledURL: wledhost,
       community: {
         email: username,
         password: password,
@@ -28,6 +30,11 @@ new Vue({
       },
       sse: null,
       status: null,
+      wledStatus: {
+        state: {
+          bri: 0
+        }
+      },
       webcentertrackname: ""
     }
   },
@@ -43,9 +50,28 @@ new Vue({
     },
     deleteFile: function(file) {
       axios.get(ipaddr + "/deleteFile" + file);
+    },
+    setSpeed: function(speed) {
+      axios.get(ipaddr + "/setrpm/" + speed);
+      this.$toasted.success("Set speed!", {duration: 1500})
+    },
+    setBrightness: function(brightness) {
+      //{"on":true,"bri":255}
+      const stateObj = {
+        on: (brightness == 0) ? false : true,
+        bri: (brightness == 0) ? 1 : brightness
+      };
+      axios.post(wledhost + "/json/state", stateObj)
+    },
+    updateWLED: function() {
+      axios.get(wledhost + "/json").then((resp) => {
+        this.wledStatus = resp.data;
+      });
     }
   },
   mounted: function () {
+    this.updateWLED();
+    setInterval(this.updateWLED, 3000);
     axios.get(ipaddr + "/status").then((resp) => {
       this.status = resp.data;
     })
