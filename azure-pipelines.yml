@@ -13,7 +13,7 @@ pool:
 steps:
 - task: CocoaPods@0
   inputs:
-    workingDirectory: '/ios/App'
+    workingDirectory: 'ios/App'
     forceRepoUpdate: false
 - task: Xcode@5
   inputs:
