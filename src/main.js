@@ -10,7 +10,7 @@ Vue.use(Toasted)
 Vue.use(VueSSE);
 
 Vue.config.productionTip = false
-const ipaddr = "https://sandy.int.vigue.me";
+const ipaddr = "http://sandy.int.vigue.me";
 const wledhost = "http://wled-wled.int.vigue.me";
 const username = "acvigue@me.com";
 const password = "Goober312$";
