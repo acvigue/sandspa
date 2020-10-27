@@ -1,0 +1,4 @@
+language: objective-c
+osx_image: xcode12.2
+xcode_project: ios/App/App.xcodeproj # path to your xcodeproj folder
+xcode_destination: platform=iOS Simulator,OS=14.0,name=iPhone XS
